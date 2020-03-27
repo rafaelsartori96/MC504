@@ -1,0 +1,59 @@
+% Rafael Sartori M. dos Santos, 186154
+\documentclass[brazilian,a4paper]{article}
+
+% Título
+\title{Atividade S4}
+\author{Rafael Sartori M. Santos, 186154}
+\date{27 de março de 2019}
+
+% Configuração do documento
+\setlength{\parskip}{3pt}
+\usepackage[utf8]{inputenc} % tipo de documento UTF-8
+\usepackage{mathtools} % permitir expressões matemáticas
+\usepackage{breqn} % equações quebradas em várias linhas automaticamente
+\usepackage{babel} % configuração da lingua portuguesa
+\usepackage{caption} % para legenda de tabelas e figuras
+\usepackage[
+    pdfauthor={Rafael Sartori M. Santos},
+    pdftitle={Atividade S4},
+    pdfproducer={LaTeX (texlive) com hyperref},
+    hidelinks
+]{hyperref} % para links externos (href)
+\usepackage{cleveref} % para referenciar tabelas e figuras melhor
+\usepackage{indentfirst} % indentação de todo primeiro parágrafo
+%\usepackage{graphicx} % para adicionar imagens
+%\graphicspath{{../imgs_in/}{../imgs_out/}} % atalho para o caminho das imagens
+%\usepackage{float} % para fixar posição de imagens
+%\usepackage{subcaption} % para imagens ficarem lado a lado
+% Usamos geometry pois dá mais espaço que fullpage
+\usepackage{geometry} % alterar geometria do papel
+\geometry{a4paper,left=1.7cm,right=1.7cm,top=1cm,bottom=2.0cm} % menor margem
+%\usepackage{fullpage} % utilizamos uma versão com menos espaçamento nas bordas
+%\usepackage{verbatim} % pacote para incluir arquivos em verbatim
+%\usepackage{mdframed} % para enquadrar coisas
+\usepackage[bitstream-charter]{mathdesign} % Mudamos a fonte para Charter BT
+\usepackage[T1]{fontenc} % Mudamos a fonte para Charter BT
+
+% Início do documento
+\begin{document}
+
+\maketitle
+
+\section*{Avaliação}
+
+Avaliar como o \textit{kernel} monolítico funciona com \textit{drivers}, que fazem muito uso de chamadas de sistema.
+
+\section*{Enunciado do problema}
+
+Como os \textit{drivers} em modo usuário podem interagir de forma eficiente com o \textit{hardware} do sistema? Que recursos os \textit{drivers} utilizam para isso?
+
+\section*{Resposta}
+
+Utilizando \textit{drivers} em modo usuário, além de permitir \textit{debugging} e aumentar a resiliência do sistema, permite diminuir a quantidade de chamadas para sistema através de \textit{queueing}, \textit{caching} e \textit{prefetching}:
+\begin{itemize}
+    \item \textbf{\textit{Queueing:}} apesar de diminuir a média do tempo de resposta, diminui o número de chamadas de sistema, para fazê-las de forma conjunta.
+    \item \textbf{\textit{Caching:}} as escritas em \textit{cache} podem aumentar muito a velocidade de um disco em casos de grande número de pequenas escritas ou pequeno número de grandes escritas (torna a transferência muito rápida quando o tamanho é menor que o tamanho da \textit{cache}).
+    \item \textbf{\textit{Prefetching:}} em casos de leituras, \textit{prefetching} pode tornar o uso de I/O imperceptível em algumas situações, como se todo o arquivo (mesmo que enorme) estivesse em memória. Mesmo que gastando algumas requisições de I/O por conta da especulação, o benefício é grande, como ocorre nos diversos níveis de \textit{caches} de CPU.
+\end{itemize}
+
+\end{document}
