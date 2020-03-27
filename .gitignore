@@ -1,0 +1,12 @@
+# Ignoramos arquivos binários
+*
+!*/
+!*.*
+
+# Ignoramos arquivos auxiliares do LaTeX
+*.out
+*.log
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.aux
