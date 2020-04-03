@@ -1,0 +1,61 @@
+% Rafael Sartori M. dos Santos, 186154
+\documentclass[brazilian,a4paper]{article}
+
+% Título
+\title{Atividade S5}
+\author{Rafael Sartori M. Santos, 186154}
+\date{3 de abril de 2020}
+
+% Configuração do documento
+\setlength{\parskip}{3pt}
+\usepackage[utf8]{inputenc} % tipo de documento UTF-8
+\usepackage{mathtools} % permitir expressões matemáticas
+\usepackage{breqn} % equações quebradas em várias linhas automaticamente
+\usepackage{babel} % configuração da lingua portuguesa
+\usepackage{caption} % para legenda de tabelas e figuras
+\usepackage[
+    pdfauthor={Rafael Sartori M. Santos},
+    pdftitle={Atividade S5},
+    pdfproducer={LaTeX (texlive) com hyperref},
+    hidelinks
+]{hyperref} % para links externos (href)
+\usepackage{cleveref} % para referenciar tabelas e figuras melhor
+\usepackage{indentfirst} % indentação de todo primeiro parágrafo
+%\usepackage{graphicx} % para adicionar imagens
+%\graphicspath{{../imgs_in/}{../imgs_out/}} % atalho para o caminho das imagens
+%\usepackage{float} % para fixar posição de imagens
+%\usepackage{subcaption} % para imagens ficarem lado a lado
+% Usamos geometry pois dá mais espaço que fullpage
+\usepackage{geometry} % alterar geometria do papel
+\geometry{a4paper,left=1.7cm,right=1.7cm,top=1cm,bottom=2.0cm} % menor margem
+%\usepackage{fullpage} % utilizamos uma versão com menos espaçamento nas bordas
+%\usepackage{verbatim} % pacote para incluir arquivos em verbatim
+%\usepackage{mdframed} % para enquadrar coisas
+\usepackage[bitstream-charter]{mathdesign} % Mudamos a fonte para Charter BT
+\usepackage[T1]{fontenc} % Mudamos a fonte para Charter BT
+
+% Início do documento
+\begin{document}
+
+\maketitle
+
+\section*{Avaliação}
+
+Avalia as principais características de I/O do UNIX.
+
+\section*{Enunciado do problema}
+
+Quais os princípios para \textit{input} e \textit{output} no \textit{kernel} do UNIX? Por que foram feitos dessa maneira?
+
+\section*{Resposta}
+
+O dispositivo genérico de entrada e saída do UNIX foi feito para lidar com enorme diversidade de dispositivos, configurações e até mesmo para comunicação em rede. Visto que segurança, resiliência e confiabilidade do sistema são requisitos para um sistema operacional, o \textit{kernel} deverá fornecer essa interface entre dispositivos e aplicações. Esses são os motivos dos princípios a seguir terem sido escolhidos:
+
+\begin{itemize}
+    \item \textbf{Uniformidade:} a interface utilizada pelas aplicações para lidar com todo tipo de dispositivo deve ser a mesma, um conjunto limitado e simples de operações: \texttt{open}, \texttt{close}, \texttt{write} e \texttt{read}.
+    \item \textbf{Abrir antes de utilizar, fechar ao sair:} para segurança, é necessário que o sistema operacional tenha as informações de quais aplicações estão utilizando tais dispositivos. Isso é feito na abertura e fechamento dos dispositivos de entrada e saída: confere-se permissões, bloqueia condições de corrida (acesso simultâneo) em dispositivos sensíveis a concorrência. Um identificador único é atribuído à comunicação entre a aplicação e o dispositivo (seja arquivo, dispositivo físico ou virtual) até seu fechamento, a partir do qual toda comunicação é bloqueada.
+    \item \textbf{Orientado a \textit{bytes}:} a comunicação é realizada através da mais básica estrutura da computação atual: vetor de \textit{bytes}. Permite enorme dinamicidade das estruturas e é computacionalmente eficiente.
+    \item \textbf{Buffer de \textit{kernel}:} como os dispositivos lidarão com vetores de \textit{bytes} e vários exigirão a máxima performance, tratar todo dispositivo de entrada como um arquivo em disco seria ineficiente. Para lidar com isso, há espaço reservado na memória do \textit{kernel} para servir de \textit{buffer} da entrada e saída, rápido por estar na memória principal, facilmente controlável pelo \textit{kernel} e confiável.
+\end{itemize}
+
+\end{document}
