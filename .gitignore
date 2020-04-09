@@ -3,6 +3,9 @@
 !*/
 !*.*
 
+# Ignoramos PDFs na raiz
+/*.pdf
+
 # Ignoramos arquivos auxiliares do LaTeX
 *.out
 *.log
