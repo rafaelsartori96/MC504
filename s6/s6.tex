@@ -1,0 +1,62 @@
+% Rafael Sartori M. dos Santos, 186154
+\documentclass[brazilian,a4paper]{article}
+
+% Configuração do documento
+\setlength{\parskip}{3pt}
+\usepackage[utf8]{inputenc} % tipo de documento UTF-8
+\usepackage{mathtools} % permitir expressões matemáticas
+\usepackage{breqn} % equações quebradas em várias linhas automaticamente
+\usepackage{babel} % configuração da lingua portuguesa
+\usepackage{caption} % para legenda de tabelas e figuras
+\usepackage{hyperref} % para links externos (href)
+\usepackage{cleveref} % para referenciar tabelas e figuras melhor
+\usepackage{indentfirst} % indentação de todo primeiro parágrafo
+%\usepackage{graphicx} % para adicionar imagens
+%\graphicspath{{../imgs_in/}{../imgs_out/}} % atalho para o caminho das imagens
+%\usepackage{float} % para fixar posição de imagens
+%\usepackage{subcaption} % para imagens ficarem lado a lado
+% Usamos geometry pois dá mais espaço que fullpage
+\usepackage{geometry} % alterar geometria do papel
+\geometry{a4paper,left=1.7cm,right=1.7cm,top=1cm,bottom=2.0cm} % menor margem
+%\usepackage{fullpage} % utilizamos uma versão com menos espaçamento nas bordas
+%\usepackage{verbatim} % pacote para incluir arquivos em verbatim
+%\usepackage{mdframed} % para enquadrar coisas
+\usepackage[bitstream-charter]{mathdesign} % Mudamos a fonte para Charter BT
+\usepackage[T1]{fontenc} % Mudamos a fonte para Charter BT
+
+% Título
+\title{Atividade S6}
+\author{Rafael Sartori M. Santos, 186154}
+\date{10 de abril de 2020}
+
+% Configuramos título do PDF
+\hypersetup{
+    pdfauthor={Rafael Sartori M. Santos},
+    pdftitle={Atividade S6},
+    pdfproducer={LaTeX (texlive) com hyperref},
+    hidelinks
+}
+
+% Início do documento
+\begin{document}
+
+\maketitle
+
+\section*{Avaliação}
+
+Esta questão pretende avaliar as diferentes formas de \textit{multithreading} para aplicações em \textit{user-level}.
+
+\section*{Enunciado do problema}
+
+Quais são os principais possíveis modelos para se implementar \textit{multithreading} do ponto de vista de uma aplicação em nível de usuário? Quais os benefícios de cada abordagem?
+
+\section*{Resposta}
+
+Há algumas abordagens, as principais são:
+\begin{itemize}
+    \item \textbf{Implementar \textit{multithreading} completamente em \textit{user-level}:} as aplicações podem criar estruturas para fazer o mesmo trabalho do \textit{kernel}, porém sendo executado em \textit{user-level}. Isso permite executar código concorrente (mesmo que não simultaneamente) em máquinas que não suportam \textit{threads}. Há, no entanto, perda de performance. Como todas as \textit{threads} simuladas executam em um único processo, o \textit{scheduler} do sistema não vê esse tipo de mecanismo, podendo limitar a performance do programa.
+    \item \textbf{Implementar \textit{multithreading} utilizando somente a implementação do \textit{kernel}:} aplicações podem utilizar chamadas de sistema para requisitar a criação de uma nova \textit{thread} para cada carga de trabalho, que será tratada pelo \textit{kernel} do sistema, independente da aplicação. O \textit{scheduler} do sistema distribuirá de forma mais otimizada a todas as aplicações o tempo do processador, evitando que aplicações que simulam 2 ou mais \textit{threads} em \textit{user-level} recebam o mesmo \textit{time slice} de uma aplicação que executa código linearmente.
+    \item \textbf{Implementar \textit{multithreading} com auxílio do \textit{kernel}:} hoje é comum utilizar \textit{threads} providas pelo \textit{kernel} do sistema, porém de maneira a aproveitar melhor os diversos núcleos do processador, através de complexas estruturas. Fazem isso através de uma \textit{thread} de longa vida para cada núcleo, diluindo o custo de fazer chamadas ao sistema no tempo em que ficam vivas. As \textit{threads} recebem, através de estruturas de dados concorrentes, os trabalhos que precisam executar, aumentando o \textit{throughtput} e diminuindo o tempo gasto em \textit{kernel-level}. É comum em aplicações pesadas, como navegadores, \textit{video encoding/decoding} e servidores de alta demanda de CPU, como os de jogos.
+\end{itemize}
+
+\end{document}
